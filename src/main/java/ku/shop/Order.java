@@ -14,6 +14,10 @@ public class Order {
     }
 
     public void addItem(Product prod, int quantity) {
+        if (prod.getStock() < quantity) {
+            throw new InsufficientStockException("Insufficient stock for " + prod.getName() + 
+                ". Available: " + prod.getStock() + ", Requested: " + quantity);
+        }
         items.add(new OrderItem(prod, quantity));
         prod.cutStock(quantity);
     }
